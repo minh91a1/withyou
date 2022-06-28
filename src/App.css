@@ -1,0 +1,20 @@
+.App {
+  text-align: center;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: lightslategray;
+}
+
+a {
+  text-decoration: none;
+  margin: 10px;
+  color: wheat;
+  font-weight: 500;
+  font-size: x-large;
+}
