@@ -45,7 +45,7 @@ function ImageUploader(props, ref) {
 
   return (
     <div>
-      <label htmlFor="file-upload">
+      <label htmlFor={props.readonly ? "." : "file-upload"}>
         {selectedFile === null && (preview === null || preview === undefined) && (
           <Center>
             <Box
@@ -56,15 +56,16 @@ function ImageUploader(props, ref) {
               borderStyle="dashed"
               m={2}
               p={2}
-              width="70%"
+              width="100%"
+              maxW={800}
               cursor="pointer"
             >
-              <Center>Add an image +</Center>
+              <Center color={"white"}>Add an image +</Center>
             </Box>
           </Center>
         )}
         {(selectedFile || preview) && (
-          <Center mt={2} mb={2} cursor="pointer">
+          <Box mt={2} mb={2} cursor="pointer" maxW={800} margin={"auto"}>
             <Center
               m="3"
               boxShadow="0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
@@ -78,7 +79,7 @@ function ImageUploader(props, ref) {
                 alt="Preview should be here!"
               />
             </Center>
-          </Center>
+          </Box>
         )}
       </label>
       <input

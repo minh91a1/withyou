@@ -3,7 +3,7 @@ import { auth, provider } from "../firebase-config"
 import { signInWithPopup } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
 import { Button, Center, Image } from "@chakra-ui/react"
-import ABasePage from "./ABasePage"
+import ABasePage from "./base/ABasePage"
 import common from "../utils/common"
 
 function Login({ setIsAuth }) {

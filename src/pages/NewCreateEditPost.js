@@ -2,7 +2,7 @@ import { React, useState, useEffect, useRef } from "react"
 import { CheckIcon } from "@chakra-ui/icons"
 import { useNavigate, useParams } from "react-router-dom"
 import { Box, Button, Input } from "@chakra-ui/react"
-import ABasePage from "./ABasePage"
+import ABasePage from "./base/ABasePage"
 import { useToast } from "@chakra-ui/react"
 
 import { Editor } from "@tinymce/tinymce-react"

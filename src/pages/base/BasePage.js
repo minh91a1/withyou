@@ -1,6 +1,7 @@
 import { ArrowBackIcon } from "@chakra-ui/icons"
-import { Box, Button, Center, Container, Flex, Spacer } from "@chakra-ui/react"
+import { Box, Button, Center, Flex, Spacer } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
+import styles from "../../css/base.module.css"
 
 const ABasePage = ({
   isAuth,
@@ -19,7 +20,7 @@ const ABasePage = ({
   }
 
   return (
-    <Container h="100vh">
+    <Box h="100vh" className={styles.root}>
       {/* Navigator */}
       <Flex h={"50"} p="1">
         {nav ? (
@@ -47,7 +48,7 @@ const ABasePage = ({
           content
         )}
       </Box>
-    </Container>
+    </Box>
   )
 }
 

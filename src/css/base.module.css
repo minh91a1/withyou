@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Arima:wght@100;400&family=Baloo+2&family=Dancing+Script&family=Dosis:wght@200;400&family=The+Nautigal&display=swap");
+
+.root {
+  position: relative;
+}
+
+.darken {
+  filter: brightness(50%);
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+.homePageTitle {
+  font-family: "Dancing Script", cursive;
+  text-align: center;
+  color: white;
+}
+
+.home-page-words {
+  font-family: "Arima", cursive;
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.accept-new-line {
+  white-space: pre-line;
+}
+
+.navigator label {
+  padding: 10px 30px;
+  color: white;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: all 0.5s ease-out;
+}
+
+.navigator label.selected {
+  border-bottom: 1px solid white;
+}
+
+.navigator label:hover {
+  border-bottom: 1px solid white;
+}
+
+.diaryCard {
+  max-width: 1200px;
+  border: 1px solid transparent;
+  color: white;
+}
+
+.diaryCard p {
+  margin-bottom: 4px;
+}
+
+.diaryCardTitle {
+  font-size: 1.5rem;
+  font-family: "Baloo 2", cursive;
+  color: white;
+}
+
+.diaryCardContent {
+  font-family: "Baloo 2", cursive;
+  max-width: 600px;
+  color: whitesmoke;
+}
+
+.max-5-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* number of lines to show */
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.user-name {
+  color: pink;
+  font-family: "Dancing Script", cursive;
+  font-size: 2rem;
+}
+
+.user-quote {
+  padding: 10px;
+  max-width: 450px;
+  color: white;
+  font-family: "Dancing Script", cursive;
+  font-size: 1.5rem;
+}
+
+.pet {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  transform: translate3d(0px, 0px, 0);
+  transition: transform 6s ease-in-out;
+}
+
+.petCore {
+  color: dodgerblue;
+  transform: scaleX(-1);
+}
+
+.pet-playground {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  opacity: 0.5;
+  z-index: 10;
+}
+
+.my-pet-home {
+  cursor: pointer;
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+.diary-post-card {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(5px);
+  border: 1px solid whitesmoke;
+  cursor: pointer;
+}
+
+.diary-detail-container {
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+  padding-top: 20px;
+  width: fit-content;
+  border: 1px solid white;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+.floating-button {
+  z-index: 1000;
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  bottom: 50px;
+  right: 50px;
+  background: white;
+  opacity: 0.8;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: box-shadow 0.5s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+}
+
+.floating-button:hover {
+  box-shadow: 0 14px 18px 0 rgba(0, 0, 0, 0.2),
+    0 16px 40px 0 rgba(0, 0, 0, 0.19);
+  color: #333;
+}
+
+.create-button {
+  font-size: 2.5rem;
+
+  transition: all 0.5s;
+}
