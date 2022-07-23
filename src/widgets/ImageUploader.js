@@ -43,9 +43,37 @@ function ImageUploader(props, ref) {
     setSelectedFile(event.target.files[0])
   }, [])
 
+  function onGetImageFromClipboard(evt) {
+    console.log(evt)
+    // Get the data of clipboard
+    const clipboardItems = evt.clipboardData.items
+    const items = [].slice.call(clipboardItems).filter(function (item) {
+      // Filter the image items only
+      return item.type.indexOf("image") !== -1
+    })
+    if (items.length === 0) {
+      return
+    }
+
+    const item = items[0]
+    // Get the blob of image
+    const blob = item.getAsFile()
+    console.log(blob)
+    setSelectedFile(blob)
+  }
+
   return (
     <div>
+      {props.readonly ? null : (
+        <Center>
+          <Box rounded="md" bg="white" p={2} onPaste={onGetImageFromClipboard}>
+            Ctrl + V
+          </Box>
+        </Center>
+      )}
+
       <label htmlFor={props.readonly ? "." : "file-upload"}>
+        {/* pick up image from local */}
         {selectedFile === null && (preview === null || preview === undefined) && (
           <Center>
             <Box
@@ -64,6 +92,8 @@ function ImageUploader(props, ref) {
             </Box>
           </Center>
         )}
+
+        {/* preview image */}
         {(selectedFile || preview) && (
           <Box mt={2} mb={2} cursor="pointer" maxW={800} margin={"auto"}>
             <Center
