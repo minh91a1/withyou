@@ -61,9 +61,9 @@ const DiaryDetailContent = (props) => {
         <Center>
           <Text className={styles.diaryCardTitle}>{title}</Text>
         </Center>
-
-        <ImageUploader ref={imageRef} value={imagePath} readonly={true} />
-
+        {imagePath ? (
+          <ImageUploader ref={imageRef} value={imagePath} readonly={true} />
+        ) : null}
         <Box
           className={"read-only"}
           margin={"auto"}
