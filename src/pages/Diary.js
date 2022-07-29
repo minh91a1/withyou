@@ -1,4 +1,4 @@
-import { React, useEffect } from "react"
+import { React, useEffect, useState } from "react"
 
 import { useNavigate } from "react-router-dom"
 import common from "../utils/common"
@@ -17,8 +17,9 @@ import FloatingButton from "../components/FloatingButton"
 import { useSelector, useDispatch } from "react-redux"
 import { useScrollPosition } from "../hooks/useScrollDirection"
 import { save } from "../reducer/scrollReducer"
-import { setTags } from "../reducer/searchReducer"
+import { setKey, setTags } from "../reducer/searchReducer"
 import Tags from "../components/Tags"
+import { useDebouncing } from "../hooks/useDebouncing"
 
 const DiaryPostCard = ({ post }) => {
   const navigate = useNavigate()
@@ -106,7 +107,7 @@ const DiaryPostList = () => {
   // query
   const { data, error, status, refetch, fetchNextPage } = useFetchInfinite(
     "post",
-    "",
+    search.searchKey,
     search.tags
   )
 
@@ -131,7 +132,7 @@ const DiaryPostList = () => {
   useEffect(() => {
     refetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search.tags])
+  }, [search.tags, search.searchKey])
 
   return (
     <>
@@ -159,7 +160,14 @@ const DiaryPostList = () => {
 
 const DiaryBody = (props) => {
   const navigate = useNavigate()
+
+  //* redux
   const dispatch = useDispatch()
+
+  const [query, setQuery] = useState(null)
+  useDebouncing(query, () => {
+    dispatch(setKey(query))
+  })
 
   function onSelectionChanged(selectedTags) {
     dispatch(setTags([...selectedTags]))
@@ -167,6 +175,10 @@ const DiaryBody = (props) => {
 
   const clickFloatingButton = (event) => {
     navigate(common.path.resolve("/diary/create")) //! THIS KILL SERVER EASILLY HAHAHAHAHAH :)))))))
+  }
+
+  function onInputSearch(event) {
+    setQuery(event.target.value)
   }
 
   return (
@@ -193,6 +205,7 @@ const DiaryBody = (props) => {
           color={"ghostwhite"}
           bg="whiteAlpha.500"
           placeholder="Search..."
+          onInput={onInputSearch}
         />
       </Center>
 
