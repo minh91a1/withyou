@@ -27,16 +27,21 @@ const DiaryDetailContent = (props) => {
   const imageRef = useRef(null)
   const editorRef = useRef(null)
 
+  //* states
   const [title, setTitle] = useState("")
   const [post, setPost] = useState("")
   const [imagePath, setImagePath] = useState("")
+  const [selectedTags, setSelectedTags] = useState(null)
 
   useEffect(() => {
     if (data && data.length > 0) {
       let postData = data[0]
-      if (postData.title) setTitle(postData.title)
-      if (postData.post) setPost(postData.post)
-      if (postData.imagePath) setImagePath(postData.imagePath)
+      if ((typeof postData).toLowerCase() === "object") {
+        if (postData.title) setTitle(postData.title)
+        if (postData.post) setPost(postData.post)
+        if (postData.imagePath) setImagePath(postData.imagePath)
+        setSelectedTags(postData.tags)
+      }
     }
   }, [data])
 
@@ -61,13 +66,26 @@ const DiaryDetailContent = (props) => {
         <Center>
           <Text className={styles.diaryCardTitle}>{title}</Text>
         </Center>
+
         {imagePath ? (
           <ImageUploader ref={imageRef} value={imagePath} readonly={true} />
         ) : null}
+
+        {selectedTags ? (
+          <Box display={"flex"} m="2">
+            {selectedTags.map((tag) => (
+              <Box key={tag.id} className={classnames(styles["diary-tag"])}>
+                {tag.tag_name}
+              </Box>
+            ))}
+          </Box>
+        ) : null}
+
         <Box
           className={"read-only"}
           margin={"auto"}
           maxW={800}
+          minW={250}
           // paddingLeft={{ sm: "0", md: "100px" }}
           // paddingRight={{ sm: "0", md: "100px" }}
         >

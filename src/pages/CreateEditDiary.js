@@ -1,10 +1,12 @@
 import { React, useState, useEffect, useRef } from "react"
 
+import Creatable, { useCreatable } from "react-select/creatable"
+
 import { useNavigate, useParams } from "react-router-dom"
 import common from "../utils/common"
 
 import { useAuth } from "../hooks/useAuth.js"
-import { Center, Text, Box, Image, Flex, Input } from "@chakra-ui/react"
+import { Center, Box, Image, Input } from "@chakra-ui/react"
 
 import { Editor } from "@tinymce/tinymce-react"
 
@@ -19,6 +21,7 @@ import { useToast } from "@chakra-ui/react"
 
 import useFetchOne from "../hooks/useFetchOne"
 import useFetchMutation from "../hooks/useFetchMutation"
+import useFetchCollection from "../hooks/useFetchCollection"
 
 import { METHOD } from "../utils/fetcher.js"
 
@@ -27,22 +30,28 @@ import FloatingButton from "../components/FloatingButton"
 const CreateEditDiaryBody = ({ isAuth }) => {
   const params = useParams()
   const { pending, auth } = useAuth()
+  let navigate = useNavigate()
+  const toast = useToast()
 
   const imageRef = useRef(null)
   const editorRef = useRef(null)
 
+  //* states
+  // post
   const [title, setTitle] = useState("")
   const [post, setPost] = useState("")
   const [imagePath, setImagePath] = useState("")
+  // tag
+  const [selectedTags, setSelectedTags] = useState(null) //? do not set [], must set null or existing tags will not show!
+  const [allTags, setallTags] = useState([])
 
-  let navigate = useNavigate()
-  const toast = useToast()
-
+  //* --- api callback ---
   const onUpdatePostSuccess = () => {
     navigate(-1)
   }
   const onCompleted = () => {}
 
+  //* api
   const { isLoading, data, error } = useFetchOne("post", params.postId)
   const { submit, isSubmitting, hasError } = useFetchMutation(
     METHOD.POST,
@@ -50,7 +59,9 @@ const CreateEditDiaryBody = ({ isAuth }) => {
     onUpdatePostSuccess,
     onCompleted
   )
+  const { data: tags } = useFetchCollection("tag", "")
 
+  //* --- event handler ---
   const updatePost = async () => {
     //* post
     var myContent = editorRef.current.getContent() //! contain tag <p>, etc.
@@ -75,25 +86,42 @@ const CreateEditDiaryBody = ({ isAuth }) => {
       img = imagePath
     }
 
+    const tags = selectMapToTag(selectedTags)
+
     const payload = {
       title,
       imagePath: img, //! payload should have exact name (for upload.single("imagePath"))
       post: myContent,
       shortPost: plainText.substring(0, 250),
+      tags,
       authorId,
     }
 
+    //* SUBMIT TO SERVER *//
     submit(payload)
   }
 
   useEffect(() => {
     if (data && data.length > 0) {
       let postData = data[0]
-      if (postData.title) setTitle(postData.title)
-      if (postData.post) setPost(postData.post)
-      if (postData.imagePath) setImagePath(postData.imagePath)
+      if ((typeof postData).toLowerCase() === "object") {
+        if (postData.title) setTitle(postData.title)
+        if (postData.post) setPost(postData.post)
+        if (postData.imagePath) setImagePath(postData.imagePath)
+        setSelectedTags(tagMapToSelect(postData.tags))
+      } else {
+        setSelectedTags([])
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
+
+  useEffect(() => {
+    if (Array.isArray(tags)) {
+      setallTags(tagMapToSelect(tags))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tags])
 
   useEffect(() => {
     if (hasError) {
@@ -119,6 +147,20 @@ const CreateEditDiaryBody = ({ isAuth }) => {
 
   const clickFloatingButton = (event) => {
     updatePost()
+  }
+
+  function tagMapToSelect(tags) {
+    if (!Array.isArray(tags)) {
+      return []
+    }
+    return tags.map((e) => ({ value: e.id, label: e.tag_name }))
+  }
+
+  function selectMapToTag(selects) {
+    return selects.map((e) => ({
+      id: e.__isNew__ ? -1 : e.value,
+      tag_name: e.label,
+    }))
   }
 
   return (
@@ -147,7 +189,19 @@ const CreateEditDiaryBody = ({ isAuth }) => {
 
       <ImageUploader ref={imageRef} value={imagePath} />
 
-      <Box margin={"auto"} maxW={800}>
+      {selectedTags ? (
+        <Box maxW={800} className={classnames(styles["tag-container"])}>
+          <Creatable
+            isMulti={true}
+            defaultValue={selectedTags}
+            onChange={setSelectedTags}
+            options={allTags}
+            placeholder="Tags..."
+          />
+        </Box>
+      ) : null}
+
+      <Box margin={"auto"} maxW={800} minW={250}>
         <Editor
           apiKey="qquo11hnj7kfwwjjusbrxt69wlxe0l24c3dyehw7a57j0vpm"
           onInit={(evt, editor) => (editorRef.current = editor)}
