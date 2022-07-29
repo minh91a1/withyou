@@ -1,4 +1,16 @@
-import { Box, Center } from "@chakra-ui/react"
+import {
+  Box,
+  Center,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react"
 import React, {
   useState,
   useEffect,
@@ -12,6 +24,7 @@ function ImageUploader(props, ref) {
   const inputRef = useRef()
   const [selectedFile, setSelectedFile] = useState(null)
   const [preview, setPreview] = useState()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     if (props.value) setPreview(process.env.REACT_APP_API_URL + props.value)
@@ -62,8 +75,14 @@ function ImageUploader(props, ref) {
     setSelectedFile(blob)
   }
 
+  function onClickPreviewImage() {
+    if (props.readonly) {
+      onOpen()
+    }
+  }
+
   return (
-    <div>
+    <div style={{ display: "inline-block" }}>
       {props.readonly ? null : (
         <Center>
           <Box rounded="md" bg="white" p={2} onPaste={onGetImageFromClipboard}>
@@ -95,7 +114,14 @@ function ImageUploader(props, ref) {
 
         {/* preview image */}
         {(selectedFile || preview) && (
-          <Box mt={2} mb={2} cursor="pointer" maxW={800} margin={"auto"}>
+          <Box
+            mt={2}
+            mb={2}
+            cursor="pointer"
+            maxW={800}
+            margin={"auto"}
+            onClick={onClickPreviewImage}
+          >
             <Center
               m="3"
               boxShadow="0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
@@ -118,6 +144,22 @@ function ImageUploader(props, ref) {
         type="file"
         onChange={onFileChange}
       />
+
+      <Modal onClose={onClose} size={"xl"} isOpen={isOpen}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>&nbsp;</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Center>
+              <img src={preview} alt="Preview should be here!" />
+            </Center>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   )
 }

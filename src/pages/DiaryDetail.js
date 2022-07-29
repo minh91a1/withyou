@@ -68,7 +68,9 @@ const DiaryDetailContent = (props) => {
         </Center>
 
         {imagePath ? (
-          <ImageUploader ref={imageRef} value={imagePath} readonly={true} />
+          <Center>
+            <ImageUploader ref={imageRef} value={imagePath} readonly={true} />
+          </Center>
         ) : null}
 
         {selectedTags ? (
@@ -84,6 +86,7 @@ const DiaryDetailContent = (props) => {
         <Box
           className={"read-only"}
           margin={"auto"}
+          w="50vw"
           maxW={800}
           minW={250}
           // paddingLeft={{ sm: "0", md: "100px" }}
