@@ -43,12 +43,12 @@ const DiaryPostCard = ({ post }) => {
         bg={"white"}
         borderRadius={"14px 14px 0px 0px"}
         w={width}
-        h={"200px"}
+        h={"180px"}
         overflow={"hidden"}
       >
         <Image
           w={width}
-          h={"200px"}
+          h={"180px"}
           objectFit={"cover"}
           src={process.env.REACT_APP_API_URL + post.imagePath}
           alt="No image to show"
@@ -107,7 +107,7 @@ const DiaryPostList = () => {
   // query
   const { data, error, status, refetch, fetchNextPage } = useFetchInfinite(
     "post",
-    search.searchKey,
+    search.searchKey ? search.searchKey : "",
     search.tags
   )
 
