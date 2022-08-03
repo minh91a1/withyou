@@ -82,85 +82,93 @@ function ImageUploader(props, ref) {
   }
 
   return (
-    <div style={{ display: "inline-block" }}>
-      {props.readonly ? null : (
-        <Center>
-          <Box rounded="md" bg="white" p={2} onPaste={onGetImageFromClipboard}>
-            Ctrl + V
-          </Box>
-        </Center>
-      )}
-
-      <label htmlFor={props.readonly ? "." : "file-upload"}>
-        {/* pick up image from local */}
-        {selectedFile === null && (preview === null || preview === undefined) && (
+    <Center>
+      <div style={{ display: "inline-block" }}>
+        {props.readonly ? null : (
           <Center>
             <Box
               rounded="md"
-              color="gray"
-              border="2px"
-              borderColor="gray.200"
-              borderStyle="dashed"
-              m={2}
+              bg="white"
               p={2}
-              width="100%"
-              maxW={800}
-              cursor="pointer"
+              onPaste={onGetImageFromClipboard}
             >
-              <Center color={"white"}>Add an image +</Center>
+              Ctrl + V
             </Box>
           </Center>
         )}
 
-        {/* preview image */}
-        {(selectedFile || preview) && (
-          <Box
-            mt={2}
-            mb={2}
-            cursor="pointer"
-            maxW={800}
-            margin={"auto"}
-            onClick={onClickPreviewImage}
-          >
-            <Center
-              m="3"
-              boxShadow="0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
-              rounded="md"
-              bg="white"
-              overflow={"hidden"}
-            >
-              <img
-                style={{ maxHeight: "400px" }}
-                src={preview}
-                alt="Preview should be here!"
-              />
-            </Center>
-          </Box>
-        )}
-      </label>
-      <input
-        style={{ display: "none" }}
-        id="file-upload"
-        type="file"
-        onChange={onFileChange}
-      />
+        <label htmlFor={props.readonly ? "." : "file-upload"}>
+          {/* pick up image from local */}
+          {selectedFile === null &&
+            (preview === null || preview === undefined) && (
+              <Center>
+                <Box
+                  rounded="md"
+                  color="gray"
+                  border="2px"
+                  borderColor="gray.200"
+                  borderStyle="dashed"
+                  m={2}
+                  p={2}
+                  width="100%"
+                  maxW={800}
+                  cursor="pointer"
+                >
+                  <Center color={"white"}>Add an image +</Center>
+                </Box>
+              </Center>
+            )}
 
-      <Modal onClose={onClose} size={"xl"} isOpen={isOpen}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>&nbsp;</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Center>
-              <img src={preview} alt="Preview should be here!" />
-            </Center>
-          </ModalBody>
-          <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </div>
+          {/* preview image */}
+          {(selectedFile || preview) && (
+            <Box
+              mt={2}
+              mb={2}
+              cursor="pointer"
+              maxW={800}
+              margin={"auto"}
+              onClick={onClickPreviewImage}
+            >
+              <Center
+                m="3"
+                boxShadow="0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                rounded="md"
+                bg="white"
+                overflow={"hidden"}
+              >
+                <img
+                  style={{ maxHeight: "400px" }}
+                  src={preview}
+                  alt="Preview should be here!"
+                />
+              </Center>
+            </Box>
+          )}
+        </label>
+        <input
+          style={{ display: "none" }}
+          id="file-upload"
+          type="file"
+          onChange={onFileChange}
+        />
+
+        <Modal onClose={onClose} size={"xl"} isOpen={isOpen}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>&nbsp;</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Center>
+                <img src={preview} alt="Preview should be here!" />
+              </Center>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={onClose}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </div>
+    </Center>
   )
 }
 

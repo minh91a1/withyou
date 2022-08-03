@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import common from "../utils/common"
 
 import { useAuth } from "../hooks/useAuth.js"
-import { Center, Text, Box, Image, Flex, Input } from "@chakra-ui/react"
+import { Center, Text, Box, Image } from "@chakra-ui/react"
 
 import { Editor } from "@tinymce/tinymce-react"
 
@@ -20,7 +20,7 @@ import FloatingButton from "../components/FloatingButton"
 
 const DiaryDetailContent = (props) => {
   const params = useParams()
-  const { isLoading, data, error } = useFetchOne("post", params.postId)
+  const { data } = useFetchOne("post", params.postId)
 
   let navigate = useNavigate()
 
