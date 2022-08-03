@@ -18,7 +18,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
+      <Router basename="/withyou">
         <Routes>
           <Route
             path={config.BASE_PATH}
