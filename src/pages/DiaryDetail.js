@@ -57,13 +57,17 @@ const DiaryDetailContent = (props) => {
         objectFit={"cover"}
         className={classnames(styles.darken, styles["background-image"])}
         alt="background"
-        src="https://wallpapercave.com/wp/wp2872696.jpg"
+        src={
+          imagePath
+            ? process.env.REACT_APP_API_URL + imagePath
+            : "https://wallpapercave.com/wp/wp2872696.jpg"
+        }
       />
 
       <FloatingButton onClick={clickFloatingButton} />
 
       <Box className={classnames(styles["diary-detail-container"])}>
-        <Center>
+        <Center maxW={800} minW={250}>
           <Text className={styles.diaryCardTitle}>{title}</Text>
         </Center>
 
@@ -74,13 +78,13 @@ const DiaryDetailContent = (props) => {
         ) : null}
 
         {selectedTags ? (
-          <Box display={"flex"} m="2">
+          <Center display={"flex"} m="2">
             {selectedTags.map((tag) => (
               <Box key={tag.id} className={classnames(styles["diary-tag"])}>
                 {tag.tag_name}
               </Box>
             ))}
-          </Box>
+          </Center>
         ) : null}
 
         <Box

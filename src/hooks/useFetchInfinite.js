@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "react-query"
 import { fetch2 } from "../utils/fetcher"
 
-const useFetchInfinite = (api, searchKey, tags) => {
+const useFetchInfinite = (api, searchKey, tags, limit) => {
   const full_api = process.env.REACT_APP_API_URL + api
   // common fetch
   const fetchProjects = async ({ pageParam = 0 }) => {
@@ -9,6 +9,8 @@ const useFetchInfinite = (api, searchKey, tags) => {
       full_api +
         "?offset=" +
         pageParam +
+        "&limit=" +
+        (limit ? limit : "10") +
         "&searchKey=" +
         searchKey +
         "&tags=" +

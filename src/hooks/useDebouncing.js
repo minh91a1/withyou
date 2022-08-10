@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-export function useDebouncing(query, onChanged) {
+export function useDebouncing(query, onChanged, time) {
   const [timer, setTimer] = useState(null)
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export function useDebouncing(query, onChanged) {
     setTimer(
       setTimeout(() => {
         onChanged()
-      }, 700)
+      }, time)
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])

@@ -21,6 +21,8 @@ import { setKey, setTags } from "../reducer/searchReducer"
 import Tags from "../components/Tags"
 import { useDebouncing } from "../hooks/useDebouncing"
 
+const MAX_PAGE = 6
+
 const DiaryPostCard = ({ post }) => {
   const navigate = useNavigate()
 
@@ -35,17 +37,9 @@ const DiaryPostCard = ({ post }) => {
       onClick={clickDiaryPost}
       key={post.id}
       bg={"white"}
-      borderRadius={"14px"}
-      m="0px 40px 30px 40px"
       className={styles["diary-post-card"]}
     >
-      <Box
-        bg={"white"}
-        borderRadius={"14px 14px 0px 0px"}
-        w={width}
-        h={"180px"}
-        overflow={"hidden"}
-      >
+      <Box bg={"white"} w={width} h={"180px"} overflow={"hidden"}>
         <Image
           w={width}
           h={"180px"}
@@ -108,7 +102,8 @@ const DiaryPostList = () => {
   const { data, error, status, refetch, fetchNextPage } = useFetchInfinite(
     "post",
     search.searchKey ? search.searchKey : "",
-    search.tags
+    search.tags,
+    MAX_PAGE
   )
 
   //* states
@@ -140,14 +135,16 @@ const DiaryPostList = () => {
         //! !pending &&
         !error &&
         data && (
-          <Flex flexWrap={"wrap"} justifyContent={"center"}>
-            {Array.isArray(data.pages) &&
-              data.pages.map((page) => {
-                return page.map((post) => {
-                  return <DiaryPostCard key={post.id} post={post} />
-                })
-              })}
-          </Flex>
+          <Center>
+            <Flex flexWrap={"wrap"} justifyContent={"center"} maxW="900px">
+              {Array.isArray(data.pages) &&
+                data.pages.map((page) => {
+                  return page.map((post) => {
+                    return <DiaryPostCard key={post.id} post={post} />
+                  })
+                })}
+            </Flex>
+          </Center>
         )}
       <Center>
         <Text cursor={"pointer"} color={"white"} onClick={loadMore}>
@@ -165,9 +162,13 @@ const DiaryBody = (props) => {
   const dispatch = useDispatch()
 
   const [query, setQuery] = useState(null)
-  useDebouncing(query, () => {
-    dispatch(setKey(query))
-  })
+  useDebouncing(
+    query,
+    () => {
+      dispatch(setKey(query))
+    },
+    700
+  )
 
   function onSelectionChanged(selectedTags) {
     dispatch(setTags([...selectedTags]))
@@ -198,7 +199,7 @@ const DiaryBody = (props) => {
         <Tags onSelectionChanged={onSelectionChanged} />
       </Center>
 
-      <Center m="0px 20px 30px 20px">
+      <Center m="0px 20px 10px 20px">
         <Input
           className={classnames(styles.placeholder)}
           maxW={"500px"}
