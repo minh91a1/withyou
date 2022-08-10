@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import common from "../utils/common"
 
 import { useAuth } from "../hooks/useAuth.js"
-import { Center, Box, Image, Input } from "@chakra-ui/react"
+import { Center, Box, Image, Input, Button } from "@chakra-ui/react"
 
 import { Editor } from "@tinymce/tinymce-react"
 
@@ -26,6 +26,8 @@ import useFetchCollection from "../hooks/useFetchCollection"
 import { METHOD } from "../utils/fetcher.js"
 
 import FloatingButton from "../components/FloatingButton"
+import { RepeatClockIcon } from "@chakra-ui/icons"
+import RecoverButton from "../components/RecoverButton"
 
 const CreateEditDiaryBody = ({ isAuth }) => {
   const params = useParams()
@@ -44,9 +46,12 @@ const CreateEditDiaryBody = ({ isAuth }) => {
   // tag
   const [selectedTags, setSelectedTags] = useState(null) //? do not set [], must set null or existing tags will not show!
   const [allTags, setallTags] = useState([])
+  // allow save temp
+  const [startSaveTemp, setStartSaveTemp] = useState(false)
 
   //* --- api callback ---
   const onUpdatePostSuccess = () => {
+    common.tempStorage.clear(params.postId)
     navigate(-1)
   }
   const onCompleted = () => {}
@@ -163,6 +168,14 @@ const CreateEditDiaryBody = ({ isAuth }) => {
     }))
   }
 
+  function onEditorChange(content, editor) {
+    if (startSaveTemp) {
+      common.tempStorage.save(params.postId, content)
+    } else {
+      setStartSaveTemp(true)
+    }
+  }
+
   return (
     <Box>
       <Image
@@ -175,6 +188,8 @@ const CreateEditDiaryBody = ({ isAuth }) => {
       />
 
       <FloatingButton onClick={clickFloatingButton} />
+
+      <RecoverButton postId={params.postId} setPost={setPost} />
 
       <Box margin={"auto"} maxW={800}>
         <Input
@@ -205,16 +220,14 @@ const CreateEditDiaryBody = ({ isAuth }) => {
         <Editor
           apiKey="qquo11hnj7kfwwjjusbrxt69wlxe0l24c3dyehw7a57j0vpm"
           onInit={(evt, editor) => (editorRef.current = editor)}
+          onEditorChange={onEditorChange}
           initialValue={post}
           init={{
             height: 350,
-
             menubar: true,
-
             plugins: [
               "advlist",
               "autolink",
-
               "lists",
               "link",
               "image",
@@ -223,7 +236,6 @@ const CreateEditDiaryBody = ({ isAuth }) => {
               "anchor",
               "searchreplace",
               "visualblocks",
-
               "fullscreen",
               "insertdatetime",
               "media",
@@ -231,14 +243,11 @@ const CreateEditDiaryBody = ({ isAuth }) => {
               "help",
               "wordcount",
             ],
-
             editor_encoding: "raw",
-
             toolbar:
               "undo redo | casechange blocks | bold italic backcolor | " +
               "alignleft aligncenter alignright alignjustify | " +
               "bullist numlist checklist outdent indent | removeformat | a11ycheck code table help",
-
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
           }}
