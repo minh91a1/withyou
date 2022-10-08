@@ -90,7 +90,7 @@ const DiaryDetailContent = (props) => {
         <Box
           className={"read-only"}
           margin={"auto"}
-          w="50vw"
+          w="80vw"
           maxW={800}
           minW={250}
           // paddingLeft={{ sm: "0", md: "100px" }}

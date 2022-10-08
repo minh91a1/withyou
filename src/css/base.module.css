@@ -36,6 +36,7 @@
   height: 50px;
   /* overflow-y: hidden; */
   overflow-x: auto;
+  padding-bottom: 6px;
 }
 
 .navigator label {

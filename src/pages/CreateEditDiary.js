@@ -26,8 +26,9 @@ import useFetchCollection from "../hooks/useFetchCollection"
 import { METHOD } from "../utils/fetcher.js"
 
 import FloatingButton from "../components/FloatingButton"
-import { RepeatClockIcon } from "@chakra-ui/icons"
 import RecoverButton from "../components/RecoverButton"
+
+var saveWithoutNavigateBack = false
 
 const CreateEditDiaryBody = ({ isAuth }) => {
   const params = useParams()
@@ -52,7 +53,17 @@ const CreateEditDiaryBody = ({ isAuth }) => {
   //* --- api callback ---
   const onUpdatePostSuccess = () => {
     common.tempStorage.clear(params.postId)
-    navigate(-1)
+    if (!saveWithoutNavigateBack) {
+      navigate(-1)
+    } else {
+      toast({
+        title: "Saved!",
+        description: "Save successful.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+    }
   }
   const onCompleted = () => {}
 
@@ -151,6 +162,12 @@ const CreateEditDiaryBody = ({ isAuth }) => {
   }, [])
 
   const clickFloatingButton = (event) => {
+    saveWithoutNavigateBack = false
+    updatePost()
+  }
+
+  const longClickFloatingButton = (event) => {
+    saveWithoutNavigateBack = true
     updatePost()
   }
 
@@ -187,7 +204,10 @@ const CreateEditDiaryBody = ({ isAuth }) => {
         src="https://wallpapercave.com/wp/wp2872696.jpg"
       />
 
-      <FloatingButton onClick={clickFloatingButton} />
+      <FloatingButton
+        onClick={clickFloatingButton}
+        onLongClick={longClickFloatingButton}
+      />
 
       <RecoverButton postId={params.postId} setPost={setPost} />
 

@@ -30,6 +30,7 @@
     "slate-react": "^0.81.0",
     "swiper": "^8.2.6",
     "tinymce": "^6.0.3",
+    "use-long-press": "^2.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
