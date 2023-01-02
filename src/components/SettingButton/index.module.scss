@@ -1,0 +1,24 @@
+.setting-button {
+  z-index: 1000;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 50px;
+  left: 50px;
+  background: white;
+  opacity: 0.8;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: box-shadow 0.5s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+}
+
+.create-setting-button {
+  font-size: 2.5rem;
+
+  transition: all 0.5s;
+}

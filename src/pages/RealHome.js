@@ -17,10 +17,18 @@ import { AiFillHome, AiOutlineTwitter } from "react-icons/ai"
 
 import { format } from "date-fns"
 import HomeNav from "../components/HomeNav"
+import { useNavigate } from "react-router-dom"
+import common from "../utils/common"
 
-const DiaryCard = ({ image, content, time, title }) => {
+const DiaryCard = ({ id, image, content, time, title }) => {
+  const navigate = useNavigate()
+  const clickDiaryPost = () => {
+    navigate(common.path.resolve("/diary/" + id))
+  }
+
   return (
     <Box
+      onClick={clickDiaryPost}
       display={{ md: "flex" }}
       pl={{ base: "50px", sm: "50px", md: "100px" }}
       pr={{ base: "50px", sm: "50px", md: "100px" }}
@@ -57,10 +65,12 @@ const DiaryCard = ({ image, content, time, title }) => {
 }
 
 const HomeContent = (props) => {
-  const textWelcome = "Chào mừng bạn về nhà!"
-  const textWords = `Một ngày vất vả nhưng bạn đã làm hết mình rồi. 
-  Giờ là khoảng thời gian hồi phục tinh thần và thể chất.
-    Hãy tưởng thưởng cho bản thân vì những cố gắng của hôm nay nhé!`
+  const textWelcome = "Hôm nay có đáng để nhớ về không thế (*^▽^*)!"
+  const textWords = `Mục tiêu tối thượng của năm nay: 365 trải nghiệm mới.
+  Vì cuộc sống không phải những ngày đã qua, mà phải là những ngày đáng để chúng ta nhở về.
+  - Better Version -.
+  
+  `
 
   // query
   const { data, error, status } = useFetchInfinite("post", "")
@@ -109,7 +119,7 @@ const HomeContent = (props) => {
         objectFit={"cover"}
         className={classnames(styles.darken, styles["background-image"])}
         alt="background"
-        src="https://wallpapercave.com/wp/wp2872696.jpg"
+        src="https://myxhanh.myds.me:2591/images/1672641899981_50q9gmuqgjntakr0cio15.jpg"
       />
       <Text
         fontSize={{ base: "3rem", md: "5rem" }}
@@ -132,18 +142,17 @@ const HomeContent = (props) => {
           <Center>
             <Avatar
               size="2xl"
-              src="https://haycafe.vn/wp-content/uploads/2021/12/Hinh-nen-cute.jpg"
+              src="http://danhngon.nhadatso.com/images/post/2015/05/21/11//co-don-la-mot-nguoi-ban.jpg"
             />
           </Center>
           <Center>
             <Text textAlign={"center"} className={styles["user-name"]}>
-              Thỏ con yêu đời
+              Nỗ lực trong cô đơn
             </Text>
           </Center>
           <Center>
             <Text textAlign={"center"} className={styles["user-quote"]}>
-              - Hãy sống trọn vẹn, đừng để những nỗi lo âu làm cuộc sống vốn đã
-              quý giá này phải bị phí phạm bởi những phiền đau. -
+              {`Đây là cuộc chiến khó khăn chỉ có thể bước đi một mình. Hãy cố lên nhé, cái tôi ơi 😌`}
             </Text>
           </Center>
         </Flex>
@@ -172,7 +181,12 @@ const HomeContent = (props) => {
                 return (
                   <SwiperSlide>
                     <DiaryCard
-                      image={process.env.REACT_APP_API_URL + post.imagePath}
+                      id={post.id}
+                      image={
+                        post.imagePath
+                          ? process.env.REACT_APP_API_URL + post.imagePath
+                          : "https://myxhanh.myds.me:2591/images/1672642014952_082cs1de4j96uq4g27d0kg.png"
+                      }
                       time={post.createTime}
                       title={post.title}
                       content={post.shortPost}

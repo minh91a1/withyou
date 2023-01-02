@@ -60,7 +60,7 @@ const DiaryDetailContent = (props) => {
         src={
           imagePath
             ? process.env.REACT_APP_API_URL + imagePath
-            : "https://wallpapercave.com/wp/wp2872696.jpg"
+            : "https://myxhanh.myds.me:2591/images/1672641899981_50q9gmuqgjntakr0cio15.jpg"
         }
       />
 

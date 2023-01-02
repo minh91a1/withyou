@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import useFetchCollection from "../hooks/useFetchCollection"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { Box, Flex } from "@chakra-ui/react"
 
 import classnames from "classnames"

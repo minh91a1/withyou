@@ -18,7 +18,7 @@
 .homePageTitle {
   font-family: "Dancing Script", cursive;
   text-align: center;
-  color: white;
+  color: gold;
 }
 
 .home-page-words {
@@ -60,6 +60,7 @@
   max-width: 1200px;
   border: 1px solid transparent;
   color: white;
+  cursor: pointer;
 }
 
 .diaryCard p {
@@ -91,6 +92,15 @@
   font-weight: bold;
 }
 
+.max-1-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .max-2-lines {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -110,7 +120,7 @@
 }
 
 .user-name {
-  color: pink;
+  color: darkturquoise;
   font-family: "Dancing Script", cursive;
   font-size: 2rem;
 }

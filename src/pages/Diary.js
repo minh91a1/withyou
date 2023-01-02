@@ -44,7 +44,11 @@ const DiaryPostCard = ({ post }) => {
           w={width}
           h={"180px"}
           objectFit={"cover"}
-          src={process.env.REACT_APP_API_URL + post.imagePath}
+          src={
+            post.imagePath
+              ? process.env.REACT_APP_API_URL + post.imagePath
+              : "https://myxhanh.myds.me:2591/images/1672642014952_082cs1de4j96uq4g27d0kg.png"
+          }
           alt="No image to show"
           className={classnames(styles["diary-card-image"])}
         />
@@ -190,7 +194,7 @@ const DiaryBody = (props) => {
         objectFit={"cover"}
         className={classnames(styles.darken, styles["background-image"])}
         alt="background"
-        src="https://wallpapercave.com/wp/wp2872696.jpg"
+        src="https://myxhanh.myds.me:2591/images/1672641899981_50q9gmuqgjntakr0cio15.jpg"
       />
 
       <FloatingButton onClick={clickFloatingButton} />

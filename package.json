@@ -26,6 +26,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
     "redux": "^4.2.0",
+    "sass": "^1.57.1",
     "slate": "^0.81.0",
     "slate-react": "^0.81.0",
     "swiper": "^8.2.6",

@@ -30,7 +30,16 @@ export default function HomeNav() {
         Mái ấm
       </label>
       <label>Khám phá</label>
-      <label>Kỷ niệm</label>
+      <label
+        onClick={() => {
+          clickNav("/quotes")
+        }}
+        className={
+          currentLink.indexOf("/quotes") >= 0 ? classnames(styles.selected) : ""
+        }
+      >
+        Kỷ niệm
+      </label>
       <label
         onClick={() => {
           clickNav("/diary")

@@ -201,7 +201,7 @@ const CreateEditDiaryBody = ({ isAuth }) => {
         objectFit={"cover"}
         className={classnames(styles.darken, styles["background-image"])}
         alt="background"
-        src="https://wallpapercave.com/wp/wp2872696.jpg"
+        src="https://myxhanh.myds.me:2591/images/1672641899981_50q9gmuqgjntakr0cio15.jpg"
       />
 
       <FloatingButton

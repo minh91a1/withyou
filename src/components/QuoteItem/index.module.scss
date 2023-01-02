@@ -1,0 +1,120 @@
+.quote-item-container {
+  max-width: 600px;
+  margin: 10px auto;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  height: 40px;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .quote-item {
+    margin: 0px 20px;
+
+    .quote-item-time {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+  }
+}
+
+.quote-item-container:hover {
+  border: 2px solid ghostwhite;
+}
+
+//* 01
+.month-01 {
+  color: deeppink;
+}
+.bg-month-01 {
+  background-color: tan;
+}
+
+//* 02
+.month-02 {
+  color: violet;
+}
+.bg-month-02 {
+  background-color: deeppink;
+}
+
+//* 03
+.month-03 {
+  color: cornflowerblue;
+}
+.bg-month-03 {
+  background-color: deeppink;
+}
+
+//* 04
+.month-04 {
+  color: gray;
+}
+.bg-month-04 {
+  background-color: deeppink;
+}
+
+//* 5
+.month-05 {
+  color: darkgreen;
+}
+.bg-month-05 {
+  background-color: deeppink;
+}
+
+//* 06
+.month-06 {
+  color: plum;
+}
+.bg-month-06 {
+  background-color: yellow;
+}
+
+//* 07
+.month-07 {
+  color: orangered;
+}
+.bg-month-07 {
+  background-color: aquamarine;
+}
+
+//* 08
+.month-08 {
+  color: forestgreen;
+}
+.bg-month-08 {
+  background-color: lightgoldenrodyellow;
+}
+
+//* 09
+.month-09 {
+  color: darkblue;
+}
+.bg-month-09 {
+  background-color: azure;
+}
+
+//* 10
+.month-10 {
+  color: darkviolet;
+}
+.bg-month-10 {
+  background-color: lightblue;
+}
+
+//* 11
+.month-11 {
+  color: yellow;
+}
+.bg-month-11 {
+  background-color: yellowgreen;
+}
+
+//* 12
+.month-12 {
+  color: dodgerblue;
+}
+.bg-month-12 {
+  background-color: lightyellow;
+}
